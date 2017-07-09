@@ -1,0 +1,229 @@
+<html>
+<head>
+    <title>寻宠记录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <link rel="stylesheet" href="/client/defaultcss.asp" type="text/css">
+    <script src="/client/netpower2.js"></script>
+    <script src="/client/utility.js"></script>
+    <script src="/client/defmapfunc.js"></script>
+    <script src="/client/interfacewindow.js"></script>
+    <script src="/client/interfacestyle.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=QOxYNILEmh3DwwGt92DkzZ2V8X1feD9A"></script>
+
+</head>
+<body onselectstart="if (window.event.srcElement.tagName!='INPUT')return false;" ondragstart="if (window.event.srcElement.tagName!='INPUT')return false;" oncontextmenu="if (window.event.srcElement.tagName!='INPUT')return false;" onload="bodyonload();">
+    <input id="ID" type="hidden"><input id="placepoint" type="hidden" /><input id="imgText" type="hidden" />
+    <table align="center">
+        <tr>
+            <td align="center" colspan="2" class="caption">寻宠记录</td>
+        </tr>
+        <tr>
+            <td>
+                疑似重复：
+            </td>
+            <td>
+                <input id="isRe" type="checkbox" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                走失时间：
+            </td>
+            <td>
+                <input id="timeInput" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                走失地点：
+            </td>
+            <td>
+                <input id="placeText" size="50" disabled />
+            </td>
+        </tr>
+        <tr id="mapTR" style="display:none;">
+            <td valign=top>地图：</td>
+            <td><div id="allmap" style="width:300px; height:200px;"></div></td>
+        </tr>
+        <tr>
+            <td>
+                品种：
+            </td>
+            <td>
+                <input id="Varieties" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                性别：
+            </td>
+            <td>
+                <input id="Gender" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                绝育：
+            </td>
+            <td>
+                <input id="sterilization" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                颜色：
+            </td>
+            <td>
+                <input id="color" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                主人姓名：
+            </td>
+            <td>
+                <input id="isname" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                手机：
+            </td>
+            <td>
+                <input id="phone" />
+            </td>
+        </tr>
+        <tr>
+            <td valign=top>
+                更多特征：
+            </td>
+            <td>
+                <textarea  id="memo" rows="5" style="width:300px;"></textarea >
+            </td>
+        </tr>
+        <tr id="imgTR" style="display:none;">
+            <td valign=top>图片</td>
+            <td id="imgTD">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><hr size=1 /></td>
+        </tr>
+        <tr>
+            <td>
+                标记删除：
+            </td>
+            <td>
+                <input id="isdeleted" type="checkbox" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                状态：
+            </td>
+            <td>
+                <select id="state"">
+                    <option value="未审核">未审核</option>
+                    <option value="已审核">已审核</option>
+                    <option value="处理中">处理中</option>
+                    <option value="已完成">已完成</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td valign=top>
+                处理记录：
+            </td>
+            <td>
+                <textarea  id="resulttext" rows="5" style="width:300px;"></textarea >
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center" colspan="2" class="functions">
+                <button onclick="fnSave()">保存</button>
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script>
+function fnOpen()
+{
+	fnOpenEx(86, _mod);
+}
+function bodyonload()
+{
+	fnReset();
+	//Automate
+	if(typeof(parameter)=="object") 
+	{
+	    if (parameter("title") != undefined) Name.value = parameter("title");
+	    fnLoad(parameter("ID"));
+		parameter.Remove("ID");
+	}
+}
+function fnLoad(id) {
+    var n, srcElem;
+    if ((n = validInt(id)) > 0) {
+        sAlert(1);
+        var param = zydataRead();
+        param("id") = n;
+        if (window.event && (srcElem = window.event.srcElement)) srcElem.disabled = true;
+        docData(_mod + ".Load", param, cbLoad);
+    }
+
+    function cbLoad(data, result) {
+        if (srcElem) srcElem.disabled = false;
+        if (result == 0) {
+            mapping(TOSTORAGE, data);
+            if (placepoint.value != "") {
+                mapTR.style.display = "";
+                var map = new BMap.Map("allmap"),
+                point = new BMap.Point(placepoint.value.split(',')[0], placepoint.value.split(',')[1]);
+
+                map.centerAndZoom(point, 15);
+                var mk = new BMap.Marker(point);
+                map.clearOverlays();
+                map.addOverlay(mk);
+                //map.panTo(point);
+                map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+                map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+            }
+            if (imgText.value != "") {
+                var imgHTML = "";
+                for (var url in imgText.value.split(',')) {
+                    imgHTML += "<a href='http://www.xunchongbao.cn" + imgText.value.split(',')[url] + "' target='_blank'><img src='http://www.xunchongbao.cn" + imgText.value.split(',')[url] + "' style='width:200px;border:0px;'></a><br><br>";
+                }
+                imgTD.innerHTML = imgHTML;
+                imgTR.style.display = "";
+            }
+        }
+        if (id.value != undefined) session("BillID") = ID.value;
+        sAlert(0);
+    }
+}
+
+
+
+map(_mod,"AddNew","","",defAddNewMapping);
+map(_mod, 'ID', ID, "", defTextMapping);
+map(_mod, 'isRe', isRe, MAPINT, defCheckBoxMapping);
+map(_mod, 'isdeleted', isdeleted, MAPINT, defCheckBoxMapping);
+map(_mod, 'timeInput', timeInput, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'placeText', placeText, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'placepoint', placepoint, MAPSTRING, defTextMapping);
+map(_mod, 'Varieties', Varieties, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'Gender', Gender, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'sterilization', sterilization, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'color', color, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'isname', isname, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'phone', phone, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'memo', memo, MAPSTRING, defTextMapping);
+map(_mod, 'imgText', imgText, MAPSTRING, defTextMapping);
+map(_mod, 'state', state, MAPSTRING, defSelectMapping);
+map(_mod, 'resulttext', resulttext, MAPSTRING, defTextMapping);
+
+</script>
+
+</html>
