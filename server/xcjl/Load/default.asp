@@ -26,6 +26,7 @@ Load
 Function fnMapping()
 	map ModName, "AddNew","",MAPVOID,"cbRSAddNew"
 	map ModName,"ID","ID",MAPINT,"cbRSDirect"
+	map ModName,"sendType","sendType",MAPINT,"cbRSDirect"
 	map ModName,"isRe","isRe",MAPINT,"cbRSDirect"
 	map ModName,"isdeleted","isdeleted",MAPINT,"cbRSDirect"
 	map ModName,"timeInput","timeInput",MAPSTRING,"cbRSDirect"
