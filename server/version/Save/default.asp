@@ -77,14 +77,11 @@ Int1 =0
 Save
 
 function fnMapping()
-	map ModName,"title","title",MAPSTRING,"cbRSDirect"
-	map ModName,"sort","sort",MAPINT,"cbRSDirect"
-	map ModName,"explain","explain",MAPSTRING,"cbRSDirect"
+	map ModName,"version","version",MAPINT,"cbRSDirect"
 end function
 
 function fnSave()
 	np2.mapping 1, stdin, ModName, rs, ID, TableName
-    connEx.execute("update [info] set version = version + 1 where id=41")
 end function
 
 %>

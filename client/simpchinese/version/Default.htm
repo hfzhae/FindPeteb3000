@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>客户端Storage版本</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <link rel="stylesheet" href="/client/defaultcss.asp" type="text/css">
+    <script src="/client/netpower2.js"></script>
+    <script src="/client/utility.js"></script>
+    <script src="/client/defmapfunc.js"></script>
+    <script src="/client/interfacewindow.js"></script>
+    <script src="/client/interfacestyle.js"></script>
+</head>
+<body onselectstart="if (window.event.srcElement.tagName!='INPUT')return false;" ondragstart="if (window.event.srcElement.tagName!='INPUT')return false;" oncontextmenu="if (window.event.srcElement.tagName!='INPUT')return false;" onload="bodyonload();">
+    <input id="ID" type="hidden">
+    <table align="center">
+        <tr>
+            <td align="center" colspan="2" class="caption">客户端Storage版本</td>
+        </tr>
+        <tr>
+            <td>
+                版本：
+            </td>
+            <td>
+                <input id="version" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2" class="functions">
+                <button onclick="fnSave()">保存</button>
+            </td>
+        </tr>
+
+    </table>
+</body>
+
+<script>
+function fnOpen()
+{
+	fnOpenEx(86, _mod);
+}
+function bodyonload()
+{
+	fnReset();
+	//Automate
+	if(typeof(parameter)=="object") {
+	    if (parameter("title") != undefined) Name.value = parameter("title");
+	    fnLoad(parameter("ID"));
+		parameter.Remove("ID");
+	}
+}
+
+function fnSave(ParentID) {
+    if (!docQueryComplete()) {
+        alert(msgFormat("docDataNotComplete"));
+        if (srcElem) srcElem.disabled = false;
+        return;
+    }
+    var param = zydataRead(), srcElem;
+    mapBind(param);
+    mapping(TODEVICE, param);
+
+    param("ParentID") = validInt(ParentID, 0);
+    if (window.event && (srcElem = window.event.srcElement)) srcElem.disabled = true;
+    sAlert(1);
+    docData(_mod + ".Save", param, cbSave);
+
+    function cbSave(data, result) {
+        sAlert(0);
+        if (srcElem) srcElem.disabled = false;
+        if ((result == 0) && (validInt(data("id")) > 0)) {
+            setSaveMsg(data);
+            alert("保存成功！");
+            modCall("Changed");
+            document.body.focus();
+        }
+        else {
+            alert("保存失败！");
+            document.body.focus();
+        }
+    }
+}
+
+map(_mod,"AddNew","","",defAddNewMapping);
+map(_mod, 'ID', ID, "", defTextMapping);
+map(_mod, 'version', version, MAPINT, defTextNotNullMapping);
+
+</script>
+
+</html>

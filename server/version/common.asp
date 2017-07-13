@@ -1,8 +1,8 @@
 <!-- #include file="../Common.asp" -->
 <%
-ModType = 2002
-ModName ="varieties"
+ModType = 2003
+ModName ="version"
 TableName ="Info"
-EventName ="品种"
+EventName ="客户端Storage版本"
 IGID = 2002
 %>
