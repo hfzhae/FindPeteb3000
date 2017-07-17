@@ -42,6 +42,7 @@ Function fnMapping()
 	map ModName,"imgText","imgText",MAPSTRING,"cbRSDirect"
 	map ModName,"state","state",MAPSTRING,"cbRSDirect"
 	map ModName,"resulttext","resulttext",MAPSTRING,"cbRSDirect"
+	map ModName,"isFind","isFind",MAPINT,"cbRSDirect"
 End Function
 
 Function fnLoad()
