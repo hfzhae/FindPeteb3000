@@ -64,12 +64,12 @@
                                 走失地点：
                             </td>
                             <td>
-                                <input id="placeText" size="50" disabled />
+                                <input id="placeText" size="50" disabled /><button id="selectPlace" onclick="selectPlaceClick()" style="display:none;">选择地点</button>
                             </td>
                         </tr>
                         <tr id="mapTR" style="display:none;">
                             <td valign=top>地图：</td>
-                            <td><div id="allmap" style="width:300px; height:200px;"></div></td>
+                            <td><div id="allmap" style="width:400px; height:300px;"></div></td>
                         </tr>
                         <tr>
                             <td>
@@ -247,6 +247,8 @@ function fnLoad(id) {
                 //map.panTo(point);
                 map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
                 map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+            } else {
+                selectPlace.style.display = "";
             }
             if (imgText.value != "") {
                 var imgHTML = "";
@@ -260,6 +262,43 @@ function fnLoad(id) {
         if (id.value != undefined) session("BillID") = ID.value;
         sAlert(0);
     }
+}
+
+function selectPlaceClick() {
+    mapTR.style.display = "";
+    placeText.disabled = false;
+    selectPlace.innerText = "搜索";
+    var map = new BMap.Map("allmap"),
+        point = new BMap.Point();
+
+    map.centerAndZoom(point, 12);
+    var mk = new BMap.Marker(point);
+    map.clearOverlays();
+    map.addOverlay(mk);
+    //map.panTo(point);
+    map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+    map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+    var geoc = new BMap.Geocoder();
+    var local = new BMap.LocalSearch(map, {
+        renderOptions: { map: map }
+    });
+    local.search(placeText.value);
+
+    map.addEventListener("click", function(e) {
+        var pt = e.point;
+        var mk = new BMap.Marker(pt);
+        map.clearOverlays();
+        map.addOverlay(mk);
+        map.panTo(pt);
+
+        geoc.getLocation(pt, function(rs) {
+            var addComp = rs.addressComponents;
+            var p = addComp.province + "," + addComp.city + "," + addComp.district + "," + addComp.street + "," + addComp.streetNumber;
+            placepoint.value = pt.lng + ',' + pt.lat;
+            placeText.value = p;
+        });
+    });
+
 }
 
 function getFindpetRs() {
@@ -361,7 +400,7 @@ map(_mod, 'resulttext', resulttext, MAPSTRING, defTextMapping);
 map(_mod, 'CreateDate', CreateDate, "", defTextMapping);
 map(_mod, 'UpdateDate', UpdateDate, "", defTextMapping);
 
-map("findpetrs", "timeInput", bdBodyDetail, "", defDetailNotNullMapping);
+map("findpetrs", "timeInput", bdBodyDetail, "", defDetailMapping);
 map("findpetrs", 'Varieties', "", "", defVoidMapping);
 map("findpetrs", 'color', "", "", defVoidMapping);
 map("findpetrs", 'placeText', "", "", defVoidMapping);
