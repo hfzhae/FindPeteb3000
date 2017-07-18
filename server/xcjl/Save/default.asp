@@ -52,6 +52,7 @@ Function SaveEx()
         rs.open "select * from FindPet where id=" & ID,connEx,3,3,1
 		if rs.eof then Err.Raise 10000, ModName & ".Save", "NotExistsID"
 		ID = rs("ID").value
+		rs("UpdateDate") = Now
 	End If
 	fnMapping
 	fnSave

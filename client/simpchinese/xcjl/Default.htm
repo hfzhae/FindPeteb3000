@@ -151,7 +151,22 @@
                 <textarea  id="resulttext" rows="5" style="width:300px;"></textarea >
             </td>
         </tr>
-
+        <tr>
+            <td>
+                提交时间：
+            </td>
+            <td>
+                <input id="CreateDate" disabled/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                修改时间：
+            </td>
+            <td>
+                <input id="UpdateDate" disabled/>
+            </td>
+        </tr>
         <tr>
             <td align="center" colspan="2" class="functions">
                 <button onclick="fnSave()">保存</button>
@@ -263,6 +278,8 @@ map(_mod, 'memo', memo, MAPSTRING, defTextMapping);
 map(_mod, 'imgText', imgText, MAPSTRING, defTextMapping);
 map(_mod, 'state', state, MAPSTRING, defSelectMapping);
 map(_mod, 'resulttext', resulttext, MAPSTRING, defTextMapping);
+map(_mod, 'CreateDate', CreateDate, "", defTextMapping);
+map(_mod, 'UpdateDate', UpdateDate, "", defTextMapping);
 
 </script>
 
