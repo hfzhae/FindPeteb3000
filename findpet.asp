@@ -108,7 +108,7 @@ Class FindpetObj
             end if
         end if
         
-        sql = "select * from findpet where "& strWhere &" order by id desc"
+        sql = "select *,CAST(timeInput as nvarchar) as timeInputFmt from findpet where "& strWhere &" order by id desc"
 
         set rs = CreateObject("Adodb.Recordset")
         rs.CursorLocation = 3

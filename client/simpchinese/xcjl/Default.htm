@@ -27,117 +27,131 @@
                 <zydsoft:optionlab width="100%" stylename="xp" id="menu">
                     <zydsoft:lab run="selectlab(0)" checked="checked">基本情况</zydsoft:lab>
                     <zydsoft:lab run="selectlab(1)">处理内容</zydsoft:lab>
-                    <zydsoft:lab run="selectlab(2)">模糊匹配结果</zydsoft:lab>
+                    <!--<zydsoft:lab run="selectlab(2)">模糊匹配结果</zydsoft:lab>-->
                 </zydsoft:optionlab>
             </td>
         </tr>
         <tr>
             <td id="labcont" valign="top" style="padding-top:20px;">
                 <b>
-                    <table align="center">
+                    <table align="center" cellpadding=10 cellspacing=10>
                         <tr>
-                            <td>
-                                捡到：
+                            <td valign="top">
+                                <table align="center">
+                                    <tr>
+                                        <td>
+                                            捡到：
+                                        </td>
+                                        <td>
+                                            <input id="sendType" type="checkbox"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            疑似重复：
+                                        </td>
+                                        <td>
+                                            <input id="isRe" type="checkbox" disabled/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            走失时间：
+                                        </td>
+                                        <td>
+                                            <input id="timeInput" disabled/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            走失地点：
+                                        </td>
+                                        <td>
+                                            <input id="placeText" size="50" disabled /><button id="selectPlace" onclick="selectPlaceClick()" style="display:none;">选择地点</button>
+                                        </td>
+                                    </tr>
+                                    <tr id="mapTR" style="display:none;">
+                                        <td valign=top>地图：</td>
+                                        <td><div id="allmap" style="width:300px; height:200px;"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            品种：
+                                        </td>
+                                        <td>
+                                            <input id="Varieties" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            性别：
+                                        </td>
+                                        <td>
+                                            <input id="Gender" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            绝育：
+                                        </td>
+                                        <td>
+                                            <input id="sterilization" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            颜色：
+                                        </td>
+                                        <td>
+                                            <input id="color" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            主人姓名：
+                                        </td>
+                                        <td>
+                                            <input id="isname" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            手机：
+                                        </td>
+                                        <td>
+                                            <input id="phone" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign=top>
+                                            更多特征：
+                                        </td>
+                                        <td>
+                                            <textarea  id="memo" rows="5" style="width:300px;"></textarea >
+                                        </td>
+                                    </tr>
+                                    <tr id="imgTR" style="display:none;">
+                                        <td valign=top>图片</td>
+                                        <td id="imgTD">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            提交时间：
+                                        </td>
+                                        <td>
+                                            <input id="CreateDate" disabled/>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
-                            <td>
-                                <input id="sendType" type="checkbox"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                疑似重复：
-                            </td>
-                            <td>
-                                <input id="isRe" type="checkbox" disabled/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                走失时间：
-                            </td>
-                            <td>
-                                <input id="timeInput" disabled/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                走失地点：
-                            </td>
-                            <td>
-                                <input id="placeText" size="50" disabled /><button id="selectPlace" onclick="selectPlaceClick()" style="display:none;">选择地点</button>
-                            </td>
-                        </tr>
-                        <tr id="mapTR" style="display:none;">
-                            <td valign=top>地图：</td>
-                            <td><div id="allmap" style="width:400px; height:300px;"></div></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                品种：
-                            </td>
-                            <td>
-                                <input id="Varieties" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                性别：
-                            </td>
-                            <td>
-                                <input id="Gender" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                绝育：
-                            </td>
-                            <td>
-                                <input id="sterilization" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                颜色：
-                            </td>
-                            <td>
-                                <input id="color" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                主人姓名：
-                            </td>
-                            <td>
-                                <input id="isname" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                手机：
-                            </td>
-                            <td>
-                                <input id="phone" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign=top>
-                                更多特征：
-                            </td>
-                            <td>
-                                <textarea  id="memo" rows="5" style="width:300px;"></textarea >
-                            </td>
-                        </tr>
-                        <tr id="imgTR" style="display:none;">
-                            <td valign=top>图片</td>
-                            <td id="imgTD">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                提交时间：
-                            </td>
-                            <td>
-                                <input id="CreateDate" disabled/>
+                            <td valign="top" id="findpettd" style="display:none;">
+                                <table>
+                                    <tr><td style="background-color:#efefef;padding:5px; border-left:solid #c00 5px;"> 可能相关</td></tr>
+                                    <tr>
+                                        <td id="findpetList"></td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
@@ -183,15 +197,6 @@
                         </tr>
                     </table>
                 </b>
-                <b>
-                    <table align="center" width="100%" height="300">
-                        <tr>
-                            <td>
-        			            <div id="bdBodyDetail" height="100%" width="100%" class="list" onseldblclick="btnEditClick()"></div>
-                            </td>
-                        </tr>
-                    </table>
-                </b>
             </td>
         </tr>
 
@@ -209,7 +214,7 @@ function fnOpen()
 	fnOpenEx(86, _mod);
 }
 function bodyonload() {
-    SetListStyle(bdBodyDetail, "findpetList");
+
 	fnReset();
 	//Automate
 	if(typeof(parameter)=="object") 
@@ -268,6 +273,8 @@ function selectPlaceClick() {
     mapTR.style.display = "";
     placeText.disabled = false;
     selectPlace.innerText = "搜索";
+    allmap.style.width = "400px";
+    allmap.style.height = "300px";
     var map = new BMap.Map("allmap"),
         point = new BMap.Point();
 
@@ -311,23 +318,27 @@ function getFindpetRs() {
     docData(_mod + ".findpet", param, cbLoad);
     function cbLoad(data, result) {
         if (result == 0) {
-            var rs = bdBodyDetail.recordset;
+            var finddiv = "", imgstr = "";
             fRs = data("findpetRs")
-            if (fRs.recordcount > 0) fRs.movefirst();
+            if (fRs.recordcount > 0) {
+                fRs.movefirst();
+                findpettd.style.display = "";
+            }
             while (!fRs.eof) {
-			    rs.AddNew();
-			    rs("timeInput") = fRs("timeInput");
-			    rs("Varieties") = fRs("Varieties");
-			    rs("color") = fRs("color");
-			    rs("placeText") = fRs("placeText");
-			    rs("CreateDate") = fRs("CreateDate");
-			    rs("isname") = fRs("isname");
-			    rs("phone") = fRs("phone");
-			    rs("SendType") = fRs("SendType");
-			    rs("ID") = fRs("ID");
+                finddiv += "<table width='120' onclick='btnEditClick(" + fRs("id").value + ");' style='cursor:hand;'>";
+                if (fRs("imgText").value != "") {
+                    imgstr = "<tr><td><img src='http://www.xunchongbao.cn" + fRs("imgText").value.split(",")[0] + "' style='width:120px;border:0px;'></td></tr>";
+                } else {
+                    imgstr = "";
+                }
+                finddiv += imgstr + "<tr><td style='font-size:12px;'>" + fRs("Varieties").value + "</td></tr>";
+                finddiv += "<tr><td style='font-size:12px;'>" + fRs("placeText").value.split(",")[0] + "·" + fRs("placeText").value.split(",")[1] + "</td></tr>";
+                finddiv += "<tr><td style='font-size:10px;color:#ccc;'>" + fRs("timeInputFmt").value + "</td></tr>";
+                finddiv += "<tr><td><hr size=1></td></tr>";
+                finddiv += "</table>";
 			    fRs.movenext();
 			}
-			bdBodyDetail.refresh();
+			findpetList.innerHTML = finddiv;
 		}
     }
 }
@@ -363,13 +374,10 @@ function defisFindMapping(direct, device, mapitem, user1, user2, user3, user4) {
 日期：2011-8-18
 作用：打开相应单据
 ---------------------*/
-function btnEditClick() {
-    var uid, param = zydataRead(), modEdit, list = bdBodyDetail, rs;
-    list.recordset.AbsolutePosition = list.selectedIndex + 1;
+function btnEditClick(id) {
+    var uid, param = zydataRead(), modEdit ;
 
-    rs = list.recordset;
-    
-    if (!(param("ID") = rs("ID").value)) return;
+    if (!(param("ID") = id)) return;
     if (!(modEdit = "寻宠记录")) return;
     var title = "查看" + modEdit;
     if (!title) title = "";
@@ -399,16 +407,6 @@ map(_mod, 'state', state, MAPSTRING, defSelectMapping);
 map(_mod, 'resulttext', resulttext, MAPSTRING, defTextMapping);
 map(_mod, 'CreateDate', CreateDate, "", defTextMapping);
 map(_mod, 'UpdateDate', UpdateDate, "", defTextMapping);
-
-map("findpetrs", "timeInput", bdBodyDetail, "", defDetailMapping);
-map("findpetrs", 'Varieties', "", "", defVoidMapping);
-map("findpetrs", 'color', "", "", defVoidMapping);
-map("findpetrs", 'placeText', "", "", defVoidMapping);
-map("findpetrs", 'CreateDate', "", "", defVoidMapping);
-map("findpetrs", 'isname', "", "", defVoidMapping);
-map("findpetrs", 'phone', "", "", defVoidMapping);
-map("findpetrs", 'SendType', "", "", defVoidMapping);
-map("findpetrs", 'ID', "", "", defVoidMapping);
 
 </script>
 
