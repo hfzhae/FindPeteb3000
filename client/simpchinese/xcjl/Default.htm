@@ -13,7 +13,7 @@
 </head>
 <body onselectstart="if (window.event.srcElement.tagName!='INPUT')return false;" ondragstart="if (window.event.srcElement.tagName!='INPUT')return false;" oncontextmenu="if (window.event.srcElement.tagName!='INPUT')return false;" onload="bodyonload();">
     <input id="ID" type="hidden"><input id="placepoint" type="hidden" /><input id="imgText" type="hidden" />
-    <table align="center" width="60%">
+    <table align="center">
         <tr>
             <td align="center" class="caption" style="padding-bottom:20px;">寻宠记录</td>
         </tr>
@@ -34,7 +34,7 @@
         <tr>
             <td id="labcont" valign="top" style="padding-top:20px;">
                 <b>
-                    <table align="center" cellpadding=10 cellspacing=10>
+                    <table align="center">
                         <tr>
                             <td valign="top">
                                 <table align="center">
@@ -67,7 +67,7 @@
                                             走失地点：
                                         </td>
                                         <td>
-                                            <input id="placeText" size="50" disabled /><button id="selectPlace" onclick="selectPlaceClick()" style="display:none;">选择地点</button>
+                                            <input id="placeText" size="40" disabled /><button id="selectPlace" onclick="selectPlaceClick()" style="display:none;">选择地点</button>
                                         </td>
                                     </tr>
                                     <tr id="mapTR" style="display:none;">
@@ -145,11 +145,11 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td valign="top" id="findpettd" style="display:none;">
-                                <table>
+                            <td valign="top" id="findpettd" style="display:inline; padding-left:30px;">
+                                <table align="right" width="125">
                                     <tr><td style="background-color:#efefef;padding:5px; border-left:solid #c00 5px;"> 可能相关</td></tr>
                                     <tr>
-                                        <td id="findpetList"></td>
+                                        <td id="findpetList">正在匹配...</td>
                                     </tr>
                                 </table>
                             </td>
@@ -157,7 +157,7 @@
                     </table>
                 </b>
                 <b style="display">
-                    <table align="center">
+                    <table align="center" id="reEdit" style="display:none;">
                         <tr>
                             <td>
                                 标记删除：
@@ -254,6 +254,7 @@ function fnLoad(id) {
                 map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
             } else {
                 selectPlace.style.display = "";
+                placeText.size = 30;
             }
             if (imgText.value != "") {
                 var imgHTML = "";
@@ -263,6 +264,7 @@ function fnLoad(id) {
                 imgTD.innerHTML = imgHTML;
                 imgTR.style.display = "";
             }
+            reEdit.style.display = "";
         }
         if (id.value != undefined) session("BillID") = ID.value;
         sAlert(0);
@@ -272,9 +274,10 @@ function fnLoad(id) {
 function selectPlaceClick() {
     mapTR.style.display = "";
     placeText.disabled = false;
+    placeText.size = 35;
     selectPlace.innerText = "搜索";
-    allmap.style.width = "400px";
-    allmap.style.height = "300px";
+    //allmap.style.width = "400px";
+    //allmap.style.height = "300px";
     var map = new BMap.Map("allmap"),
         point = new BMap.Point();
 
@@ -318,11 +321,11 @@ function getFindpetRs() {
     docData(_mod + ".findpet", param, cbLoad);
     function cbLoad(data, result) {
         if (result == 0) {
-            var finddiv = "", imgstr = "";
+            var finddiv = "无相关记录。", imgstr = "";
             fRs = data("findpetRs")
             if (fRs.recordcount > 0) {
                 fRs.movefirst();
-                findpettd.style.display = "";
+                finddiv = "";
             }
             while (!fRs.eof) {
                 finddiv += "<table width='120' onclick='btnEditClick(" + fRs("id").value + ");' style='cursor:hand;'>";
@@ -332,8 +335,9 @@ function getFindpetRs() {
                     imgstr = "";
                 }
                 finddiv += imgstr + "<tr><td style='font-size:12px;'>" + fRs("Varieties").value + "</td></tr>";
+                finddiv += "<tr><td style='font-size:12px;'>" + fRs("Color").value.split(",")[0] + "</td></tr>";
                 finddiv += "<tr><td style='font-size:12px;'>" + fRs("placeText").value.split(",")[0] + "·" + fRs("placeText").value.split(",")[1] + "</td></tr>";
-                finddiv += "<tr><td style='font-size:10px;color:#ccc;'>" + fRs("timeInputFmt").value + "</td></tr>";
+                finddiv += "<tr><td style='font-size:10px;color:#aaa;'>" + fRs("timeInputFmt").value + "</td></tr>";
                 finddiv += "<tr><td><hr size=1></td></tr>";
                 finddiv += "</table>";
 			    fRs.movenext();
