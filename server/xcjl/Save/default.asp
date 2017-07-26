@@ -94,6 +94,7 @@ function fnMapping()
 	map ModName,"color","color",MAPSTRING,"cbRSDirect"
 	map ModName,"isname","isname",MAPSTRING,"cbRSDirect"
 	map ModName,"phone","phone",MAPSTRING,"cbRSDirect"
+	map ModName,"amount","amount",MAPINT,"cbRSDirect"
 	map ModName,"memo","memo",MAPSTRING,"cbRSDirect"
 	map ModName,"imgText","imgText",MAPSTRING,"cbRSDirect"
 	map ModName,"state","state",MAPSTRING,"cbRSDirect"

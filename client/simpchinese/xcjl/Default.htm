@@ -123,6 +123,14 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>
+                                            赏金：
+                                        </td>
+                                        <td>
+                                            <input id="amount" />
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td valign=top>
                                             更多特征：
                                         </td>
@@ -405,6 +413,7 @@ map(_mod, 'sterilization', sterilization, MAPSTRING, defTextNotNullMapping);
 map(_mod, 'color', color, MAPSTRING, defTextNotNullMapping);
 map(_mod, 'isname', isname, MAPSTRING, defTextNotNullMapping);
 map(_mod, 'phone', phone, MAPSTRING, defTextNotNullMapping);
+map(_mod, 'amount', amount, MAPINT, defTextMapping);
 map(_mod, 'memo', memo, MAPSTRING, defTextMapping);
 map(_mod, 'imgText', imgText, MAPSTRING, defTextMapping);
 map(_mod, 'state', state, MAPSTRING, defSelectMapping);
